@@ -28,47 +28,43 @@ function lsearch {
   fi
 }
 
-function wv {
-  cd ~/path/to/repos/${1}
-}
-
-function tfm {
-  lsearch ~/wave/src/terraform-modules $1
-
+function repos {
+  cd ~/repos/${1}
 }
 
 # Check if primary SSH identity is stored, if not, add it
 
 # Function to connect to the VPN from command line
-function vpn {
-  CHK_STATE=$(osascript \
-  -e "tell application \"/Applications/Tunnelblick.app\"" \
-  -e "get state of configurations" \
-  -e "end tell")
 
-  if [[ "$1" = "on" ]]
-    then if [[ "$CHK_STATE" = "CONNECTED" ]]
-      then echo "Already connected"
-      else echo "Connecting to VPN..."
-      osascript \
-	-e "tell application \"/Applications/Tunnelblick.app\"" \
-        -e "connect \"wave-vpn\"" \
-        -e "end tell"
-      echo "Waiting 60 seconds for routing update..."
-      sleep 60
-    fi
-  elif [[ "$1" = "off" ]]
-    then if [[ "$CHK_STATE" = "CONNECTED" ]] 
-      then echo "Disconnecting the VPN..."
-      osascript \
-      -e "tell application \"/Applications/Tunnelblick.app\"" \
-      -e "disconnect \"wave-vpn\"" \
-      -e "end tell"
-      else echo "VPN Already disconnected"
-    fi
-  else echo "Command not recognized"
-  fi
-}
+#function vpn {
+#  CHK_STATE=$(osascript \
+#  -e "tell application \"/Applications/Tunnelblick.app\"" \
+#  -e "get state of configurations" \
+#  -e "end tell")
+#
+#  if [[ "$1" = "on" ]]
+#    then if [[ "$CHK_STATE" = "CONNECTED" ]]
+#      then echo "Already connected"
+#      else echo "Connecting to VPN..."
+#      osascript \
+#	-e "tell application \"/Applications/Tunnelblick.app\"" \
+#        -e "connect \"wave-vpn\"" \
+#        -e "end tell"
+#      echo "Waiting 60 seconds for routing update..."
+#      sleep 60
+#    fi
+#  elif [[ "$1" = "off" ]]
+#    then if [[ "$CHK_STATE" = "CONNECTED" ]] 
+#      then echo "Disconnecting the VPN..."
+#      osascript \
+#      -e "tell application \"/Applications/Tunnelblick.app\"" \
+#      -e "disconnect \"wave-vpn\"" \
+#      -e "end tell"
+#      else echo "VPN Already disconnected"
+#    fi
+#  else echo "Command not recognized"
+#  fi
+#}
 
 # Open a browser to the repo page in Github
 function ghr {
@@ -89,7 +85,7 @@ function date_prompt {
 	date +%Y-%M-%d@%H:%M:%S
 }
 
-function gempty {
+function gcempty {
 	git commit --allow-empty -m "empty"
 }
 
